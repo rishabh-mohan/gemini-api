@@ -7,6 +7,8 @@ export async function openVertexAI() {
     const browser = await chromium.launch({ headless: false });
     const page = await browser.newPage();
     await page.goto(startUrl);
-    
+    que.answer("Please log into VertexAI on the opened browser.");
+    await page.waitForURL((url) => url.hostname.includes('vertexaisearch.cloud.google.com'), { timeout: 0 });
+    que.answer("Successfully logged in.");
     return { browser, page };
 }
