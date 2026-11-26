@@ -19,7 +19,14 @@ export async function askVertexAI(page, query) {
     if (await coveringBanner.count() > 0) {
         await page.getByRole('button', { name: 'Get Started' }).click();
     }
-    await page.getByRole('textbox', { name: 'Ask Gemini Enterprise' }, { exact: true }).fill(query);
+    const startMsg = await page.getByRole('textbox', { name: 'Ask Gemini Enterprise' });
+    if (await startMsg.count() > 0) {
+        await startMsg.fill(query);
+    } else {
+        await page.getByRole("textbox", { name: 'Ask a follow-up' }).fill(query);
+    }
     await page.getByRole('button', { name: 'Submit' }, { exact: true }).click();
     return "Submitted";
 }
+
+// aria under conversation name may be useful for reading inputs
