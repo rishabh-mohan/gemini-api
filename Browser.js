@@ -1,5 +1,6 @@
 import { chromium } from 'playwright';
 import { CLIQuery } from './CLIQuery.js';
+var responses = 0;
 
 export async function openVertexAI() {
     const browserContext = (await chromium.launchPersistentContext("./browserData", { headless: false }));
@@ -26,7 +27,10 @@ export async function askVertexAI(page, query) {
         await page.getByRole("textbox", { name: 'Ask a follow-up' }).fill(query);
     }
     await page.getByRole('button', { name: 'Submit' }, { exact: true }).click();
-    return "Submitted";
+    
+    responses++;
+    const msgs = page.locator('.markdown-document');
+    return await msgs.last().innerText();
 }
 
 // aria under conversation name may be useful for reading inputs
