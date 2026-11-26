@@ -1,0 +1,27 @@
+{
+  "name": "gemini-api",
+  "version": "1.0.0",
+  "description": "Links Gemini Enterprise to a CLI interface w/ Playwright",
+  "keywords": [
+    "Gemini",
+    "Playwright"
+  ],
+  "homepage": "https://github.com/rishabh-mohan/gemini-api#readme",
+  "bugs": {
+    "url": "https://github.com/rishabh-mohan/gemini-api/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rishabh-mohan/gemini-api.git"
+  },
+  "license": "MIT",
+  "author": "Rishabh Mohan",
+  "type": "module",
+  "main": "gemini-api.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "playwright": "^1.65.1"
+  }
+}
