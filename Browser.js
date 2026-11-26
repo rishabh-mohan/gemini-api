@@ -4,17 +4,15 @@ var responses = 0;
 
 export async function openVertexAI() {
     const browserContext = (await chromium.launchPersistentContext("./browserData", { headless: false }));
-    const que = new CLIQuery();
     const startUrl = 'https://accounts.google.com/AccountChooser?continue=https://vertexaisearch.cloud.google.com/us/home/cid/3d214ebb-d244-423a-a021-61b49b8b5f09?hl=en_US';
     const page = browserContext.pages()[0];
     await page.goto(startUrl);
-    que.answer("Please log into VertexAI on the opened browser.");
+    console.log("Please log into VertexAI on the opened browser.");
     await page.waitForURL((url) => url.hostname === 'vertexaisearch.cloud.google.com', { timeout: 0 });
-    que.answer("Successfully logged in.");
+    console.log("Successfully logged in. CTRL + C to quit.");
     return { page };
 }
 
-//get query in future from CLI.js
 export async function askVertexAI(page, query) {
     const coveringBanner = await page.getByRole('dialog', { name: 'Welcome to Gemini Enterprise!' });
     if (await coveringBanner.count() > 0) {

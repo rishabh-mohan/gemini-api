@@ -7,7 +7,10 @@ export class CLIQuery {
     }
 
     async ask(query) {
-        const answer = await this.rl.question(query);
+        var answer = await this.rl.question(query);
+        while (answer.trim() === "") {
+            answer = await this.rl.question(query);
+        }
         return answer.trim();
     }
 
