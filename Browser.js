@@ -26,11 +26,13 @@ export async function askVertexAI(page, query) {
     } else {
         await page.getByRole("textbox", { name: 'Ask a follow-up' }).fill(query);
     }
-    await page.getByRole('button', { name: 'Submit' }, { exact: true }).click();
+    await page.getByRole('button', { name: 'Submit', exact: true }).click();
     
-    responses++;
+    var needToStall = await page.locator('#ucs-live-announcer-0:text-is("Response complete")');
+    await needToStall.waitFor({ state:'detached' });
+    
+    var complete = await page.locator('#ucs-live-announcer-0:text-is("Response complete")');
+    await complete.waitFor({ timeout: 300000 });
     const msgs = page.locator('.markdown-document');
     return await msgs.last().innerText();
 }
-
-// aria under conversation name may be useful for reading inputs
